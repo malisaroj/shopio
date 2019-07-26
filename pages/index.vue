@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+      <banner />
             <product-box :products="products" title="Featured Products"></product-box>
             <product-box :products="products" title="Latest Product"></product-box>
     </div>
@@ -8,11 +9,14 @@
 <script>
     import Logo from "../components/Logo.vue";
     import ProductBox from "../components/productBox.vue";
+    import Banner from "../components/Banner.vue";
+  
 
     export default {
         components: {
             Logo,
-            ProductBox
+            ProductBox,
+            Banner
         },
         data() {
             return {

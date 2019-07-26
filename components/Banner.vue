@@ -1,21 +1,20 @@
 <template>
-  <carousel>
-    <template slot="prev">
-      <span class="prev">prev</span>
-    </template>
+
+  <no-ssr>
+  <carousel :items=1 :nav="false"  :autoplay="true" :loop="true" :autoplayTimeout="8000" :stagePadding=60>
+
     <div
-      v-for="(item, index) in images"
+      v-for="(item, index) in banner"
       :key="index"
       class="d-flex align-items-center cover"
-      :style="{'background-image': 'url(' + item.link + ')'}"
+      :style="{'background-image': 'url(' + item.image + ')'}"
     >
       <div class="container">
-        <div class="row justify-content-center justify-content-md-start">
+        <div class="row justify-content-center">
           <div class="col-10 col-md-6 static">
-            <h2 class="banner-title">Surface Studio</h2>
+            <h2 class="banner-title">{{ item.name }}</h2>
             <div class="banner-subtitle">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident, neque. Nesciunt distinctio
-              expedita voluptas?
+                {{ item.info }}
             </div>
             <button>
               <a href="#">Buy Now</a>
@@ -24,30 +23,49 @@
         </div>
       </div>
     </div>
-    <template slot="next">
-      <span class="next">next</span>
-    </template>
+
   </carousel>
+  </no-ssr>
+
 </template>
 
 <script>
-import carousel from "vue-owl-carousel";
 export default {
   components: {
-    carousel
+    
   },
   data() {
     return {
+                    banner: [
+                    {
+                        name: 'Apple MacBook Pro',
+                        info: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident, neque. Nesciunt distinctio',
+                        image: require('../assets/images/Rounded-Rectangle-1.png')                    
+                        },
+                    {
+                        name: 'Apple MacBook Pro',
+                        info: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident, neque. Nesciunt distinctio',
+                        image: require('../assets/images/Rounded-Rectangle-1.png')                    
+                        },
+                    {
+                        name: 'Apple MacBook Pro',
+                        info: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident, neque. Nesciunt distinctio',
+                        image: require('../assets/images/Rounded-Rectangle-1.png')                    
+                        },
 
-      images: [
-        { link: '~/assets/img/Rounded Rectangle 1.png' },
-        { link: '~/assets/img/Rounded Rectangle 1.png' },
-        { link: '~/assets/img/Rounded Rectangle 1.png' }
-      ]
-    };
+
+                    ]
+        }
   }
 };
 </script>
 
-<style>
+<style scoped>
+ .cover {
+    min-height: 500px;
+    background-repeat: no-repeat;
+    margin-bottom: 30px;
+    max-width: 100%;
+ }
+
 </style>
