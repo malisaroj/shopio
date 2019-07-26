@@ -17,7 +17,9 @@
     "express": "^4.16.4",
     "jquery": "^3.4.1",
     "nuxt": "^2.4.0",
-    "popper.js": "^1.14.7"
+    "popper.js": "^1.14.7",
+    "vue-dynamic-star-rating": "^1.0.8",
+    "vue-star-rating": "^1.6.1"
   },
   "devDependencies": {
     "expose-loader": "^0.7.5",
