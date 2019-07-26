@@ -1,18 +1,24 @@
 <template>
-    <div class="container">
-            <product-box :products="products" title="Featured Products"></product-box>
-            <product-box :products="products" title="Latest Product"></product-box>
+    <div class="content-wrapper">
+        <b-container>
+            <product-box :products="products" title="Featured Products" shown="5"></product-box>
+            <product-box :products="products" title="Latest Product" shown="5"></product-box>
+        </b-container>
+
+        <deals-carousel :items="products" name="Deals of the Day"></deals-carousel>
     </div>
 </template>
 
 <script>
     import Logo from "../components/Logo.vue";
     import ProductBox from "../components/productBox.vue";
+    import DealsCarousel from "../components/dealsCarousel.vue";
 
     export default {
         components: {
             Logo,
-            ProductBox
+            ProductBox,
+            DealsCarousel
         },
         data() {
             return {
@@ -66,7 +72,10 @@
 </script>
 
 <style>
-
+.container{
+    width: 90%;
+    max-width: 90%;
+}
     .title {
         font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
         "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

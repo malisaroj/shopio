@@ -2,9 +2,9 @@
     <div>
         <b-row class="no-gutters">
             <b-col lg="12" class="featured-product">
-                <h2 class="section-title">{{title}}</h2>
+                <h2 class="section-title" v-if="title">{{title}}</h2>
                 <no-ssr>
-                <carousel :nav="false" :margin="20" :responsive="{0:{items:1,nav:false},600:{items:4,nav:true}}"
+                <carousel :nav="false" :margin="20" :responsive="{0:{items:1,nav:false},600:{items:shown,nav:true}}"
                           :dots="false">
                     <div class="product-box" v-for="(p,i) in products" :key="i">
                         <nuxt-link class="nav-link" to="/"><img :src="p.image" :alt="p.name"></nuxt-link>
@@ -25,15 +25,12 @@
 <script>
     export default {
         components: {},
-        props: ['products', 'title'],
+        props: ['products', 'title', 'shown'],
         name: "productBox"
     }
 </script>
 
 <style>
-    .row {
-        max-width: calc(100% - 30px);
-    }
 
     .product-box p {
         font-size: 13px;
@@ -46,7 +43,7 @@
     }
 
     .featured-product .product-box img {
-        margin-bottom: 20px;
+        margin-bottom: 20px !important;
         width: auto;
         max-width: 100%;
         margin: 0 auto;
@@ -59,6 +56,7 @@
         padding: 10px;
         margin-bottom: 30px;
         border-radius: 6px;
+        text-align: center;
     }
 
     .price-row {
