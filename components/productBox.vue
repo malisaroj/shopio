@@ -1,12 +1,14 @@
 <template>
-    <div class="container">
+    <div>
         <b-row class="no-gutters">
-            <b-col lg="12 featured-product">
+            <b-col lg="12" class="featured-product">
+                <h2 class="section-title">{{title}}</h2>
+                <no-ssr>
                 <carousel :nav="false" :margin="20" :responsive="{0:{items:1,nav:false},600:{items:4,nav:true}}"
                           :dots="false">
                     <div class="product-box" v-for="(p,i) in products" :key="i">
                         <nuxt-link class="nav-link" to="/"><img :src="p.image" :alt="p.name"></nuxt-link>
-                        <nuxt-link class="nav-link" to="/"><h2>{{p.name}}</h2></nuxt-link>
+                        <h2>{{p.name}}</h2>
                         <p>{{p.info}}</p>
                         <div class="price-row">
                             <span class="stars">0 0 0 0 0</span>
@@ -14,16 +16,16 @@
                         </div>
                     </div>
                 </carousel>
+                </no-ssr>
             </b-col>
         </b-row>
-
     </div>
 </template>
 
 <script>
     export default {
         components: {},
-        props: ['products'],
+        props: ['products', 'title'],
         name: "productBox"
     }
 </script>
@@ -75,7 +77,7 @@
         border-radius: 50%;
     }
     .featured-product{
-        margin-top: 120px;
+        margin-top: 30px;
 
     }
     .featured-product .owl-nav{
@@ -83,5 +85,10 @@
         top: -70px;
         right: 0;
     }
-
+.section-title{
+    color: #6a6a6a;
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
 </style>
