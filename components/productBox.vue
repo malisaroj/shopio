@@ -1,16 +1,21 @@
 <template>
-    <div>
-        <b-row class="no-gutters">
-            <b-col lg="3" md="6" v-for="(p,i) in products" :key="i">
-                <div class="product-box">
-                    <img :src="p.image" :alt="p.name">
-                    <h2>{{p.name}}</h2>
-                    <p>{{p.info}}</p>
-                    <div class="price-row">
-                        <div class="stars">0 0 0 0 0</div>
-                        <div class="price">{{p.price}}</div>
-                    </div>
-                </div>
+    <div class="container">
+        <b-row>
+            <b-col lg="12" md="12" >
+                <no-ssr> <!-- important to add no-ssr-->
+                    <carousel :nav="false">
+                        <div class="product-box" v-for="(p,i) in products" :key="i">
+                            <nuxt-link class="nav-link" to="/"><img :src="p.image" :alt="p.name"></nuxt-link>
+                            <nuxt-link class="nav-link" to="/"><h2>{{p.name}}</h2></nuxt-link>
+                            <p>{{p.info}}</p>
+                            <div class="price-row">
+                                <div class="stars">0 0 0 0 0</div>
+                                <div class="price">{{p.price}}</div>
+                            </div>
+                        </div>
+                    </carousel>
+                </no-ssr>
+
             </b-col>
         </b-row>
 

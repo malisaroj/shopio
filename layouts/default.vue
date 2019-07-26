@@ -8,20 +8,12 @@
                         <button @click.prevent="showCat">
                             <span class="navbar-toggler-icon"></span></button>
                         <div class="categories-list" v-if="categoryies">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#">Active</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="#">Disabled</a>
-                                </li>
-                            </ul>
+                            <b-nav vertical class="w-25">
+                                <b-nav-item active>Active</b-nav-item>
+                                <b-nav-item>Link</b-nav-item>
+                                <b-nav-item>Another Link</b-nav-item>
+                                <b-nav-item disabled>Disabled</b-nav-item>
+                            </b-nav>
                         </div>
                     </div>
                 </b-col>

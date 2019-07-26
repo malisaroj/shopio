@@ -1,7 +1,6 @@
 <template>
     <section class="container">
         <div>
-            <logo/>
             <product-box :products="products"></product-box>
             <h1 class="title">Awesome</h1>
             <h2 class="subtitle">Nuxt App</h2>
