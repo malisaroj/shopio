@@ -4,6 +4,10 @@ const webpack = require("webpack");
 
 module.exports = {
   mode: 'universal',
+  server: {
+    port: 8000, // default: 3000
+    host: '127.0.0.1', // default: localhost
+  },
 
   /*
   ** Headers of the page
