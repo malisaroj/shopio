@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div class="content-wrapper">
         <b-container>
             <product-box :products="products" title="Featured Products" shown="5"></product-box>
@@ -6,19 +7,34 @@
         </b-container>
 
         <deals-carousel :items="products" name="Deals of the Day"></deals-carousel>
+=======
+    <div class="container">
+      <banner />
+            <product-box :products="products" title="Featured Products"></product-box>
+            <product-box :products="products" title="Latest Product"></product-box>
+>>>>>>> 48cf7fa9aebb571c5d6e58fbffd1112910c6994b
     </div>
 </template>
 
 <script>
     import Logo from "../components/Logo.vue";
     import ProductBox from "../components/productBox.vue";
+<<<<<<< HEAD
     import DealsCarousel from "../components/dealsCarousel.vue";
+=======
+    import Banner from "../components/Banner.vue";
+  
+>>>>>>> 48cf7fa9aebb571c5d6e58fbffd1112910c6994b
 
     export default {
         components: {
             Logo,
             ProductBox,
+<<<<<<< HEAD
             DealsCarousel
+=======
+            Banner
+>>>>>>> 48cf7fa9aebb571c5d6e58fbffd1112910c6994b
         },
         data() {
             return {
