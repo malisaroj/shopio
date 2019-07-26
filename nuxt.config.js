@@ -1,82 +1,81 @@
+const pkg = require('./package')
+const webpack = require("webpack");
+
+
 module.exports = {
+  mode: 'universal',
+
   /*
   ** Headers of the page
   */
   head: {
-    title: '{{ name }}',
+    title: pkg.name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '{{escape description }}' }
+      { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.min.css' }
     ]
   },
+
   /*
-  ** Customize the progress bar color
+  ** Customize the progress-bar color
   */
-  loading: {
-    color: '#3B8070'
-  },
+  loading: { color: '#fff' },
+
   /*
   ** Global CSS
   */
   css: [
-    { src: '~/assets/scss/style.scss', lang: 'scss' }
+    "~/node_modules/bootstrap/dist/css/bootstrap.css"
   ],
+
   /*
-  ** Global Plugin
+  ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/vuex.js', ssr: false }
+    "~plugins/bootstrap.js"
   ],
+
   /*
-  ** Global Module
+  ** Nuxt.js modules
   */
-  modules: [
+  modules: [,
+    // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt'
   ],
+
   /*
   ** Build configuration
   */
   build: {
-    extractCSS: true,
     /*
-    ** Run ESLint on save
+    ** You can extend webpack config here
     */
-    extend (config, ctx) {
-      if (ctx.isClient) {
+    vendor: ["jquery", "bootstrap"],
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: 'jquery',
+        jquery: 'jquery',
+        'window.jQuery': 'jquery'
+      })
+    ],
+    extend(config,  { isDev, isClient, isServer }) {
+      if (isDev && isClient) {
+        // expose jquery to global
         config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-
-        const vueLoader = config.module.rules.find(({loader}) => loader === 'vue-loader')
-        const { options: {loaders} } = vueLoader || { options: {} }
-
-        if (loaders) {
-          for (const loader of Object.values(loaders)) {
-            changeLoaderOptions(Array.isArray(loader) ? loader : [loader])
-          }
-        }
-
-        config.module.rules.forEach(rule => changeLoaderOptions(rule.use))
-      }
-    }
-  }
-}
-
-const changeLoaderOptions = (loaders) => {
-  if (loaders) {
-    for (const loader of loaders) {
-      if (loader.loader === 'sass-loader') {
-        Object.assign(loader.options, {
-          includePaths: ['./assets']
+          test: require.resolve('jquery'),
+          use: [{
+            loader: 'expose-loader',
+            options: '$'
+          }]
         })
       }
+
     }
   }
 }
