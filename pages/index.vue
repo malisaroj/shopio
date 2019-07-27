@@ -6,18 +6,21 @@
             <product-box :products="products" title="Latest Product" shown="5"></product-box>
         </b-container>
         <deals-carousel :items="products" name="Deals of the Day"></deals-carousel>
+        <footer-component></footer-component>
     </div>
 </template>
 
 <script>
     import ProductBox from "../components/productBox.vue";
     import DealsCarousel from "../components/dealsCarousel.vue";
+    import FooterComponent from "../components/FooterComponent.vue";
     import Banner from "../components/Banner.vue";
 
     export default {
         components: {
             ProductBox,
             DealsCarousel,
+            FooterComponent,
             Banner
         },
         data() {

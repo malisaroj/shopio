@@ -22,6 +22,7 @@ module.exports = {
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
             // { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.3/css/bootstrap.min.css' }
+            {rel:'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:300,400&display=swap'},
         ]
     },
 
@@ -34,7 +35,8 @@ module.exports = {
     ** Global CSS
     */
     css: [
-        "~/node_modules/bootstrap/dist/css/bootstrap.css"
+        "~/node_modules/bootstrap/dist/css/bootstrap.css",
+        "@/assets/css/main.css"
     ],
 
     /*

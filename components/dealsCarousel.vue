@@ -2,12 +2,18 @@
     <div class="deals-of-day">
         <b-container>
             <b-row>
-                <b-col lg="2"> <Countdown date="1660999999"></Countdown></b-col>
-                <b-col lg="10">
-                    <product-box :products="items" shown="4"></product-box>
+                <b-col lg="2" class="d-flex flex-wrap align-items-center">
+                    <div class="counterzsection">
+                        <h2>{{name}}</h2>
+                        <Countdown date="1660999999"></Countdown>
+                    </div>
                 </b-col>
-            </b-row>
-        </b-container>
+
+    <b-col lg="10">
+        <product-box :products="items" shown="4"></product-box>
+    </b-col>
+    </b-row>
+    </b-container>
 
     </div>
 </template>
@@ -36,6 +42,7 @@
     .deals-of-day .product-box {
         box-shadow: 0px 0px 25px 0px rgba(226, 233, 255, 0.15);
     }
+
     .deals-of-day .featured-product .owl-nav {
         position: absolute;
         left: -20px;
@@ -43,5 +50,13 @@
         display: flex;
         justify-content: space-between;
         top: calc(50% - 50px);
+    }
+    .counterzsection{
+
+    }
+    .counterzsection h2{
+        color: #fff;
+        font-weight: 700;
+
     }
 </style>
