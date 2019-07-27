@@ -113,7 +113,7 @@
         padding: 15px;
         min-width: 220px;
         position: absolute;
-        top: 42px;
+        top: 55px;
         left: 0;
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
         z-index: 10;
@@ -122,6 +122,7 @@
     .category-menu button {
         background: none;
         border: none;
+        width: 50px;
     }
 
     .category-menu {
