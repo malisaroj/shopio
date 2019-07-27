@@ -66,6 +66,8 @@
     }
 
     .featured-product .owl-nav button.owl-next,
+    .banner-slider .owl-nav button.owl-next,
+    .banner-slider .owl-nav button.owl-prev,
     .featured-product .owl-nav button.owl-prev {
         border-radius: 50%;
         background-color: rgb(255, 255, 255);
@@ -82,6 +84,19 @@
         position: absolute;
         top: -70px;
         right: 0;
+    }
+    .banner-slider .owl-nav button.owl-next,
+    .banner-slider .owl-nav button.owl-prev {
+        right: 150px !important;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: calc(50% - 50px);
+        left: initial;
+    }
+    .banner-slider .owl-nav button.owl-prev{
+        right: initial;
+        left: 150px;
     }
 .section-title{
     color: #6a6a6a;
