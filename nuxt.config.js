@@ -44,6 +44,7 @@ module.exports = {
         "~plugins/bootstrap.js",
         {src: 'plugins/owl.js', ssr: false} // Only works on client side
     ],
+
     /*
     ** Nuxt.js modules
     */
@@ -51,7 +52,6 @@ module.exports = {
         // Doc: https://bootstrap-vue.js.org/docs/
         'bootstrap-vue/nuxt'
     ],
-
     /*
     ** Build configuration
     */

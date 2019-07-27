@@ -2,7 +2,7 @@
     <div class="deals-of-day">
         <b-container>
             <b-row>
-                <b-col lg="2"></b-col>
+                <b-col lg="2"> <Countdown date="1660999999"></Countdown></b-col>
                 <b-col lg="10">
                     <product-box :products="items" shown="4"></product-box>
                 </b-col>
@@ -14,11 +14,13 @@
 
 <script>
     import ProductBox from "./productBox.vue";
+    import Countdown from "./countdown.vue";
 
     export default {
-        props: ['items', 'name'],
+        props: ['items', 'name',],
         components: {
-            ProductBox
+            ProductBox,
+            Countdown
         },
         name: "dealsCarousel"
     }

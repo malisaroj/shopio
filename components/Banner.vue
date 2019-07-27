@@ -2,13 +2,11 @@
 
   <no-ssr>
   <carousel :items=1 :nav="false"  :autoplay="true" :loop="true" :autoplayTimeout="8000" :stagePadding=60>
-
     <div
       v-for="(item, index) in banner"
       :key="index"
       class="d-flex align-items-center cover"
-      :style="{'background-image': 'url(' + item.image + ')'}"
-    >
+      :style="{'background-image': 'url(' + item.image + ')'}">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-10 col-md-6 static">
