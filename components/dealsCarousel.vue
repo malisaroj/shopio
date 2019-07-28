@@ -40,6 +40,8 @@
         background: #070921;
         padding: 80px 0;
         margin-top: 30px;
+        position: relative;
+        overflow: hidden;
     }
 
     .deals-of-day .product-box {

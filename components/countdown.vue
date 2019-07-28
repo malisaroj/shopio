@@ -2,19 +2,19 @@
     <div class="countdown">
         <div class="block hide">
             <p class="digit">{{ days | two_digits }}</p>
-            <p class="text">Days</p>
+            <p class="text" v-if="!two_digits">Days</p>
         </div>
         <div class="block">
             <p class="digit">{{ hours | two_digits }}:</p>
-            <p class="text">Hours</p>
+            <p class="text" v-if="!two_digits">Hours</p>
         </div>
         <div class="block">
             <p class="digit">{{ minutes | two_digits }}:</p>
-            <p class="text">Minutes</p>
+            <p class="text" v-if="!two_digits">Minutes</p>
         </div>
         <div class="block">
             <p class="digit">{{ seconds | two_digits }}</p>
-            <p class="text">Seconds</p>
+            <p class="text" v-if="!two_digits">Seconds</p>
         </div>
     </div>
 </template>
@@ -31,6 +31,7 @@
                 coerce: str => Math.trunc(Date.parse(str) / 1000)
             }
         },
+
         data() {
             return {
                 now: Math.trunc((new Date()).getTime() / 1000)
