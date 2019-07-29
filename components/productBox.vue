@@ -26,7 +26,7 @@
             <span class="close" @click.prevent="hideQuickView"></span>
             <quick-view :item="viewItem"></quick-view>
         </div>
-        <div class="quickOverlay" v-if="quickView"></div>
+        <div class="quickOverlay" v-if="quickView" @click.prevent="hideQuickView"></div>
     </div>
 </template>
 
@@ -182,5 +182,22 @@
     }
     .quickView > div, .quickView > div > div {
         height: 100%;
+    }
+    button.quickview:hover {
+        color: #333;
+        background: #fff;
+
+    }
+    button.quickview {
+        position: absolute;
+        width: 220px;
+        left: calc(50% - 110px);
+        top: -60px;
+        border: none;
+        transition: all 0.4s;
+    }
+    .product-box:hover button.quickview {
+        top: 70px
+
     }
 </style>
