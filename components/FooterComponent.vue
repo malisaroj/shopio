@@ -164,6 +164,21 @@ button {
 }
 
 input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-size: 12px;
+  color: rgb(160, 160, 160);
+  text-align: left;
+}
+
+input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  font-size: 12px;
+  color: rgb(160, 160, 160);
+  text-align: left;
+}
+
+input::-ms-input-placeholder {
+  /* Microsoft Edge */
   font-size: 12px;
   color: rgb(160, 160, 160);
   text-align: left;
