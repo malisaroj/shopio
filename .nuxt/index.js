@@ -12,6 +12,7 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 import nuxt_plugin_bootstrapvue_9397f3f8 from 'nuxt_plugin_bootstrapvue_9397f3f8' // Source: ./bootstrap-vue.js (mode: 'all')
 import nuxt_plugin_bootstrap_0a49ca20 from 'nuxt_plugin_bootstrap_0a49ca20' // Source: ..\\plugins\\bootstrap.js (mode: 'all')
+import nuxt_plugin_starratings_7fbbed36 from 'nuxt_plugin_starratings_7fbbed36' // Source: ..\\plugins\\star-ratings.js (mode: 'all')
 import nuxt_plugin_owl_7562b290 from 'nuxt_plugin_owl_7562b290' // Source: ..\\plugins\\owl.js (mode: 'client')
 
 // Component: <NoSsr>
@@ -132,6 +133,7 @@ async function createApp(ssrContext) {
 
   if (typeof nuxt_plugin_bootstrapvue_9397f3f8 === 'function') await nuxt_plugin_bootstrapvue_9397f3f8(app.context, inject)
   if (typeof nuxt_plugin_bootstrap_0a49ca20 === 'function') await nuxt_plugin_bootstrap_0a49ca20(app.context, inject)
+  if (typeof nuxt_plugin_starratings_7fbbed36 === 'function') await nuxt_plugin_starratings_7fbbed36(app.context, inject)
 
   if (process.client) {
     if (typeof nuxt_plugin_owl_7562b290 === 'function') await nuxt_plugin_owl_7562b290(app.context, inject)
