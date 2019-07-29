@@ -1,20 +1,16 @@
 <template>
     <div class="countdown">
         <div class="block hide">
-            <p class="digit">{{ days | two_digits }}</p>
-            <p class="text">Days</p>
+            <p class="digit">{{ days.toString().length > 1 ? days : days == 0 ? '00' : '0' + days }}</p>
         </div>
         <div class="block">
-            <p class="digit">{{ hours | two_digits }}:</p>
-            <p class="text">Hours</p>
+            <p class="digit">{{ hours.toString().length > 1 ? hours : hours == 0 ? '00' : '0' + hours }}:</p>
         </div>
         <div class="block">
-            <p class="digit">{{ minutes | two_digits }}:</p>
-            <p class="text">Minutes</p>
+            <p class="digit">{{ minutes.toString().length > 1 ? minutes : minutes == 0 ? '00' : '0' + minutes }}:</p>
         </div>
         <div class="block">
-            <p class="digit">{{ seconds | two_digits }}</p>
-            <p class="text">Seconds</p>
+            <p class="digit">{{ seconds.toString().length > 1 ? seconds : seconds == 0 ? '00' : '0' + seconds }}</p>
         </div>
     </div>
 </template>
@@ -27,8 +23,7 @@
         },
         props: {
             date: {
-                type: String,
-                coerce: str => Math.trunc(Date.parse(str) / 1000)
+                type: String
             }
         },
         data() {
@@ -37,30 +32,35 @@
             }
         },
         computed: {
+            dateInMilliseconds() {
+                return Math.trunc(Date.parse(this.date) / 1000)
+            },
             seconds() {
-                return (this.date - this.now) % 60;
+                return (this.dateInMilliseconds - this.now) % 60;
             },
             minutes() {
-                return Math.trunc((this.date - this.now) / 60) % 60;
+                return Math.trunc((this.dateInMilliseconds - this.now) / 60) % 60;
             },
             hours() {
-                return Math.trunc((this.date - this.now) / 60 / 60) % 24;
+                return Math.trunc((this.dateInMilliseconds - this.now) / 60 / 60) % 24;
             },
             days() {
-                return Math.trunc((this.date - this.now) / 60 / 60 / 24);
+                return Math.trunc((this.dateInMilliseconds - this.now) / 60 / 60 / 24);
             }
         }
     }
 </script>
 <style>
-    .hide{
+    .hide {
         display: none !important;
     }
+
     .block {
         display: flex;
         flex-direction: column;
         margin: 2px;
     }
+
     .countdown {
         display: flex;
     }

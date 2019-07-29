@@ -44,7 +44,8 @@ module.exports = {
     */
     plugins: [
         "~plugins/bootstrap.js",
-        {src: 'plugins/owl.js', ssr: false} // Only works on client side
+        "~plugins/star-ratings.js",
+        {src: 'plugins/owl.js', ssr: false}, // Only works on client side
     ],
 
     /*

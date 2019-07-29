@@ -8,7 +8,7 @@
                         <button @click.prevent="showCat">
                             <span class="navbar-toggler-icon"></span></button>
                         <div class="categories-list" v-if="categoryies">
-                            <b-nav vertical class="w-25">
+                            <b-nav vertical class="">
                                 <b-nav-item active>Active</b-nav-item>
                                 <b-nav-item>Link</b-nav-item>
                                 <b-nav-item>Another Link</b-nav-item>
@@ -19,7 +19,8 @@
                 </b-col>
                 <b-col md="7">
                     <div class="searchBar">
-                        <input type="text" placeholder="Search products & brands" name="searchField" class="form-control"></div>
+                        <input type="text" placeholder="Search products & brands" name="searchField"
+                               class="form-control"></div>
                 </b-col>
                 <b-col md="3" class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
@@ -160,4 +161,21 @@
         border-radius: 2px;
     }
 
+    .categories-list ul li a:hover {
+        padding-left: 19px;
+
+    }
+    .categories-list ul li a.active {
+        color: #000;
+
+    }
+    .categories-list ul li a {
+        color: #666;
+        font-size: 14px;
+        -webkit-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        -ms-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        transition: all 0.4s;
+    }
 </style>
