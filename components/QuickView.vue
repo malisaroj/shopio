@@ -38,4 +38,10 @@
 .contentContainer{
     padding: 40px;
 }
+    .imageContainer{
+        background: #F5F5F5;
+        padding: 80px;
+        height: 100%;
+        text-align: center;
+    }
 </style>
