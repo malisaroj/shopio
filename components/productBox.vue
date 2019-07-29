@@ -11,7 +11,7 @@
                         <h2>{{p.name}}</h2>
                         <p>{{p.info}}</p>
                         <div class="price-row">
-                            <span class="stars">0 0 0 0 0</span>
+                            <span class="stars"><star-rating :show-rating="false" :rating="p.ratings" :star-size="16" :read-only="true" :increment="0.01"></star-rating></span>
                             <span class="price">{{p.price}}</span>
                         </div>
                     </div>
@@ -23,8 +23,9 @@
 </template>
 
 <script>
+    import StarRating from 'vue-star-rating'
     export default {
-        components: {},
+        components: {StarRating},
         props: ['products', 'title', 'shown'],
         name: "productBox"
     }
@@ -47,6 +48,7 @@
         width: auto;
         max-width: 100%;
         margin: 0 auto;
+        height: 120px;
 
     }
     .product-box {

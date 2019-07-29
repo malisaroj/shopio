@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="container footer-container">
       <div class="row">
-        <div class="col-xl-3 col-lg-3">
+        <div class="col-xl-3 col-lg-3 footer-logo-col">
           <div class="footer-logo">
             <div>
               <a href="#">
@@ -19,7 +19,7 @@
               <h5 class="menu-title">{{ item.title }}</h5>
               <ul class="footer-menu">
                 <li v-for="(i, j) in item.menuItem" :key="j" class="menu-item">
-                  <a :href="i.link">{{ i.name }}</a>
+                  <nuxt-link :to="i.link">{{ i.name }}</nuxt-link>
                 </li>
               </ul>
             </div>
@@ -157,11 +157,12 @@ button {
   background-color: #f4f5f9;
 }
 
-.footer-logo {
+.footer-logo-col {
   display: flex;
+  align-items: center;
 }
 
-.footer-logo>div{
-  align-items:center;
+input::placeholder {
+  padding: 20px;
 }
 </style>

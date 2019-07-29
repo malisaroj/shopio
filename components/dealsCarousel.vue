@@ -8,7 +8,9 @@
                 <b-col lg="2" class="d-flex flex-wrap align-items-center">
                     <div class="counterzsection">
                         <h2>{{name}}</h2>
-                        <Countdown date="1660999999"></Countdown>
+                        <no-ssr>
+                        <Countdown date="2019-08-12 08:15:00"></Countdown>
+                        </no-ssr>
                     </div>
                 </b-col>
 
@@ -62,6 +64,7 @@
     .counterzsection h2{
         color: #fff;
         font-weight: 700;
+        font-size: 40px;
 
     }
     #stars {
