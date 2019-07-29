@@ -7,14 +7,12 @@
         </b-container>
         <deals-carousel :items="products" name="Deals of the Day"></deals-carousel>
         <ads></ads>
-        <footer-component></footer-component>
     </div>
 </template>
 
 <script>
     import ProductBox from "../components/productBox.vue";
     import DealsCarousel from "../components/dealsCarousel.vue";
-    import FooterComponent from "../components/FooterComponent.vue";
     import Banner from "../components/Banner.vue";
     import Ads from "../components/Ads.vue";
 
@@ -22,7 +20,6 @@
         components: {
             ProductBox,
             DealsCarousel,
-            FooterComponent,
             Banner,
             Ads,
         },
