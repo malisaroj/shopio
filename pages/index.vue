@@ -6,6 +6,7 @@
             <product-box :products="products" title="Latest Product" shown="5"></product-box>
         </b-container>
         <deals-carousel :items="products" name="Deals of the Day"></deals-carousel>
+        <ads></ads>
         <footer-component></footer-component>
     </div>
 </template>
@@ -15,13 +16,15 @@
     import DealsCarousel from "../components/dealsCarousel.vue";
     import FooterComponent from "../components/FooterComponent.vue";
     import Banner from "../components/Banner.vue";
+    import Ads from "../components/Ads.vue";
 
     export default {
         components: {
             ProductBox,
             DealsCarousel,
             FooterComponent,
-            Banner
+            Banner,
+            Ads,
         },
         data() {
             return {

@@ -33,6 +33,7 @@
               <input type="email" name="email" id="email" placeholder="Your email Address" />
               <button type="submit">Submit</button>
             </div>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
           </div>
         </div>
       </div>
@@ -163,6 +164,9 @@ button {
 }
 
 input::placeholder {
-  padding: 20px;
+  font-size: 12px;
+  color: rgb(160, 160, 160);
+  text-align: left;
 }
 </style>
+
