@@ -3,7 +3,40 @@
     <h4>Categories</h4>
 
     <div class="row">
-      <div v-for="(item, index) in categories" :key="index" class="col-2 category-container">
+      <div class="col-4">
+        <h5>filter by</h5>
+        <div class="filterTitle">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            v-model="search"
+            placeholder="Enter Keyword Here"
+          />
+        </div>
+      </div>
+
+      <div class="filterBrand col-4">
+        <h5>Brand</h5>
+        <input type="checkbox" name="acer" id="acer" v-model="brandNames" value="Acer" />
+        <label for="acer">Acer</label>
+        <input type="checkbox" name="dell" id="dell" v-model="brandNames" value="Dell" />
+        <label for="dell">Dell</label>
+        <input type="checkbox" name="hp" id="hp" v-model="brandNames"  value="Hp"/>
+        <label for="hp">HP</label>
+      </div>
+
+      <div class="filterPrice col-4">
+        <h5>Price</h5>
+        <input type="checkbox" name="50to100" id="50to100" v-model="price" />
+        <label for="50to100">$50 to $100</label>
+        <input type="checkbox" name="100to250" id="100to250" v-model="price" />
+        <label for="100to250">$100 to $250</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div v-for="(item, index) in filteredItems" :key="index" class="col-2 category-container">
         <nuxt-link to>
           <div class="category-link">
             <div class="image-container">
@@ -23,22 +56,29 @@
 export default {
   data() {
     return {
+      search: "",
+      brandNames: [],
+      price: [],
       categories: [
         {
           title: "Business",
-          image: require("../../assets/images/leca.png")
+          brand: "Dell",
+          image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Tshirts",
-          image: require("../../assets/images/leca.png")
+          brand: "Calvin Klein",
+          image: require("../../assets/images/pro-1.png")
         },
         {
           title: "Shipping Bags",
-          image: require("../../assets/images/leca.png")
+          brand: "Gucci",
+          image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Traditional Laptops",
-          image: require("../../assets/images/leca.png")
+          brand: "Acer",
+          image: require("../../assets/images/pro-1.png")
         },
         {
           title: "Cable Converters",
@@ -66,6 +106,14 @@ export default {
         }
       ]
     };
+  },
+
+  computed: {
+    filteredItems() {
+      return this.categories.filter(item => {
+        return item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+      });
+    }
   }
 };
 </script>
@@ -74,7 +122,7 @@ export default {
 .img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .category-name {
@@ -105,8 +153,9 @@ export default {
   transform: all 0.3s ease-in-out;
 }
 
-a:link, a:visited {
-    text-decoration: none;
+a:link,
+a:visited {
+  text-decoration: none;
 }
 
 .category-link {
