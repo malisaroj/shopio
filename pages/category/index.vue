@@ -3,7 +3,7 @@
     <h4>Categories</h4>
 
     <div class="row">
-      <div class="col-4">
+      <div class="col-3">
         <h5>filter by</h5>
         <div class="filterTitle">
           <input
@@ -16,28 +16,33 @@
         </div>
       </div>
 
-      <div class="filterBrand col-4">
-        <h5>Brand</h5>
-        <input type="checkbox" name="acer" id="acer" v-model="brandNames" value="Acer" />
-        <label for="acer">Acer</label>
-        <input type="checkbox" name="dell" id="dell" v-model="brandNames" value="Dell" />
-        <label for="dell">Dell</label>
-        <input type="checkbox" name="hp" id="hp" v-model="brandNames"  value="hp"/>
-        <label for="hp">HP</label>
+      <div v-for="(filter, index) in brandFilters" :key="index" class="filterBrand col-3">
+        <h5>{{filter.title}}</h5>
+        <div v-for="(a, b) in filter.options" :key="b">
+          <input type="checkbox" :name="a.name" :id="a.name" v-model="brandNames" :value="a.value" />
+          <label :for="a.name">{{a.label}}</label>
+        </div>
       </div>
 
-      <div class="filterPrice col-4">
-        <h5>Price</h5>
-        <input type="checkbox" name="50to100" id="50to100" v-model="price" value="" />
-        <label for="50to100">$50 to $100</label>
-        <input type="checkbox" name="100to250" id="100to250" v-model="price" value="" />
-        <label for="100to250">$100 to $250</label>
+      <div v-for="(filter, index) in priceFilters" :key="index" class="filterPrice col-3">
+        <h5>{{filter.title}}</h5>
+        <div v-for="(a, b) in filter.options" :key="b">
+          <input type="checkbox" :name="a.name" :id="a.name" v-model="price" :value="a.value" />
+          <label :for="a.name">{{a.label}}</label>
+        </div>
+      </div>
+
+      <div v-for="(filter, index) in colorFilters" :key="index" class="filterColor col-3">
+        <h5>{{filter.title}}</h5>
+        <div v-for="(a, b) in filter.options" :key="b">
+          <input type="checkbox" :name="a.name" :id="a.name" v-model="color" :value="a.value" />
+          <label :for="a.name">{{a.label}}</label>
+        </div>
       </div>
     </div>
 
     <div class="row">
-
-      <div  v-for="(item, index) in filteredItems" :key="index" class="col-2 category-container">
+      <div v-for="(item, index) in filteredItems" :key="index" class="col-2 category-container">
         <nuxt-link to>
           <div class="category-link">
             <div class="image-container">
@@ -60,29 +65,106 @@ export default {
       search: "",
       brandNames: [],
       price: [],
+      color: [],
+
+      brandFilters: [
+        {
+          title: "Brand",
+          options: [
+            {
+              name: "acer",
+              value: "Acer",
+              model: "brandNames",
+              label: "Acer"
+            },
+            {
+              name: "dell",
+              value: "Dell",
+              model: "brandNames",
+              label: "Dell"
+            },
+            {
+              name: "hp",
+              value: "Hp",
+              model: "brandNames",
+              label: "Hp"
+            }
+          ]
+        }
+      ],
+      priceFilters: [
+        {
+          title: "Price",
+          options: [
+            {
+              name: "50to100",
+              value: "50",
+              model: "price",
+              label: "$50 to $100"
+            },
+            {
+              name: "100to250",
+              value: "250",
+              model: "price",
+              label: "$100 to $ 250"
+            }
+          ]
+        }
+      ],
+      colorFilters: [
+        {
+          title: "Color",
+          options: [
+            {
+              name: "red",
+              value: "Red",
+              model: "color",
+              label: "Red"
+            },
+            {
+              name: "white",
+              value: "White",
+              model: "color",
+              label: "White"
+            }
+          ]
+        }
+      ],
+
       categories: [
         {
           title: "Business",
           brand: "Dell",
+          color: "Red",
+          price: "50",
           image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Tshirts",
           brand: "Calvin Klein",
+          color: "Red",
+          price: "100",
           image: require("../../assets/images/pro-1.png")
         },
         {
           title: "Shipping Bags",
           brand: "Gucci",
+          color: "Red",
+          price: "250",
           image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Traditional Laptops",
           brand: "Acer",
+          color: "White",
+          price: "100",
+
           image: require("../../assets/images/pro-1.png")
         },
         {
           title: "Cable Converters",
+          color: "White",
+          price: "49",
           image: require("../../assets/images/leca.png")
         },
         {
@@ -108,12 +190,20 @@ export default {
       ]
     };
   },
- 
+
   computed: {
     filteredItems() {
       return this.categories.filter(item => {
-        return (this.brandNames.length === 0 || this.brandNames.some(i => i.includes(item.brand))) && 
-        (this.search.length === 0 || item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ) ;
+        return (
+          (this.brandNames.length === 0 ||
+            this.brandNames.some(i => i.includes(item.brand))) &&
+          (this.search.length === 0 ||
+            item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1) &&
+          (this.color.length === 0 ||
+            this.color.some(j => j.includes(item.color))) &&
+          (this.price.length === 0 ||
+            this.price.some(k => k.includes(item.price)))
+        );
       });
     }
   }
@@ -145,14 +235,14 @@ export default {
   height: 148.5px;
   border-right: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
+  -webkit-transform: all 0.3s ease-in-out;
+  -ms-transform: all 0.3s ease-in-out;
+  transform: all 0.3s ease-in-out;
 }
 
 .category-container:hover {
   box-shadow: 0 2px 4px 0 rgba(39, 23, 23, 0.25);
   position: relative;
-  -webkit-transform: all 0.3s ease-in-out;
-  -ms-transform: all 0.3s ease-in-out;
-  transform: all 0.3s ease-in-out;
 }
 
 a:link,
