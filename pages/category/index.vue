@@ -22,21 +22,22 @@
         <label for="acer">Acer</label>
         <input type="checkbox" name="dell" id="dell" v-model="brandNames" value="Dell" />
         <label for="dell">Dell</label>
-        <input type="checkbox" name="hp" id="hp" v-model="brandNames"  value="Hp"/>
+        <input type="checkbox" name="hp" id="hp" v-model="brandNames"  value="hp"/>
         <label for="hp">HP</label>
       </div>
 
       <div class="filterPrice col-4">
         <h5>Price</h5>
-        <input type="checkbox" name="50to100" id="50to100" v-model="price" />
+        <input type="checkbox" name="50to100" id="50to100" v-model="price" value="" />
         <label for="50to100">$50 to $100</label>
-        <input type="checkbox" name="100to250" id="100to250" v-model="price" />
+        <input type="checkbox" name="100to250" id="100to250" v-model="price" value="" />
         <label for="100to250">$100 to $250</label>
       </div>
     </div>
 
     <div class="row">
-      <div v-for="(item, index) in filteredItems" :key="index" class="col-2 category-container">
+
+      <div  v-for="(item, index) in filteredItems" :key="index" class="col-2 category-container">
         <nuxt-link to>
           <div class="category-link">
             <div class="image-container">
@@ -107,11 +108,12 @@ export default {
       ]
     };
   },
-
+ 
   computed: {
     filteredItems() {
       return this.categories.filter(item => {
-        return item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+        return (this.brandNames.length === 0 || this.brandNames.some(i => i.includes(item.brand))) && 
+        (this.search.length === 0 || item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ) ;
       });
     }
   }
