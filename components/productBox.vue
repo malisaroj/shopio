@@ -14,7 +14,7 @@
                                 <span class="stars"><star-rating :show-rating="false" :rating="p.ratings"
                                                                  :star-size="16" :read-only="true"
                                                                  :increment="0.01"></star-rating></span>
-                                <span class="price">{{p.price}}</span>
+                                <span class="price">${{p.price}}</span>
                                 <button class="quickview" @click.prevent="quickItem(p)">Quick View</button>
                             </div>
                         </div>
@@ -190,11 +190,13 @@
     }
     button.quickview {
         position: absolute;
-        width: 220px;
-        left: calc(50% - 110px);
+        width: 180px;
+        left: calc(50% - 90px);
         top: -60px;
         border: none;
         transition: all 0.4s;
+        border-radius: 45px;
+        box-shadow: 0px 0px 25px 0px rgba(226, 233, 255, 0.65);
     }
     .product-box:hover button.quickview {
         top: 70px
