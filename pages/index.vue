@@ -16,7 +16,6 @@
 <script>
     import ProductBox from "../components/productBox.vue";
     import DealsCarousel from "../components/dealsCarousel.vue";
-    import FooterComponent from "../components/FooterComponent.vue";
     import Banner from "../components/Banner.vue";
     import Ads from "../components/Ads.vue";
     import Cart from '../components/MiniCart.vue'
@@ -26,7 +25,6 @@
         components: {
             ProductBox,
             DealsCarousel,
-            FooterComponent,
             Banner,
             Cart,
             Ads,

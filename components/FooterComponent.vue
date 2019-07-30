@@ -4,11 +4,11 @@
       <div class="row">
         <div class="col-xl-3 col-lg-3 footer-logo-col">
           <div class="footer-logo">
-            <div>
+            <div class="logo-container">
               <a href="#">
-                <img src="../assets/images/Logo.png" alt="Logo" />
+                <img class="logo-img" src="../assets/images/Logo.png" alt="Logo" />
               </a>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
           </div>
         </div>
@@ -27,13 +27,13 @@
         </div>
 
         <div class="col-xl-3 col-lg-3">
-          <div class>
+          <div>
             <h5 class="menu-title">Subscribe</h5>
-            <div class="d-flex">
+            <div class="d-flex email-container">
               <input type="email" name="email" id="email" placeholder="Your email Address" />
               <button type="submit">Submit</button>
             </div>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
           </div>
         </div>
       </div>
@@ -134,7 +134,6 @@ p {
   height: 50px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 25px 0px rgba(180, 190, 221, 0.5);
-  height: 50px;
   z-index: 212;
 }
 
@@ -163,6 +162,10 @@ button {
   align-items: center;
 }
 
+.email-container {
+  margin: 18px 0;
+}
+
 input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   font-size: 12px;
@@ -184,4 +187,3 @@ input::-ms-input-placeholder {
   text-align: left;
 }
 </style>
-

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _2b5b2eef = () => interopDefault(import('..\\pages\\category\\index.vue' /* webpackChunkName: "pages_category_index" */))
 const _20b7a979 = () => interopDefault(import('..\\pages\\form.vue' /* webpackChunkName: "pages_form" */))
 const _5cddb9ed = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
@@ -66,6 +67,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/category",
+      component: _2b5b2eef,
+      name: "category"
+    }, {
       path: "/form",
       component: _20b7a979,
       name: "form"
