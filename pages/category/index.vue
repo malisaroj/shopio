@@ -5,7 +5,7 @@
       <div class="col-3">
         <div class>
           <h5>filter by</h5>
-          <div class="filterTitle">
+          <!-- <div class="filterTitle">
             <input
               type="text"
               name="search"
@@ -13,7 +13,7 @@
               v-model="search"
               placeholder="Enter Keyword Here"
             />
-          </div>
+          </div>-->
         </div>
 
         <div v-for="(filter, index) in filters" :key="index" class>
@@ -84,6 +84,15 @@ export default {
       price: [],
       color: [],
       size: [],
+      filtersAsNumbers: {
+        "Under $25": [0, 25],
+        "$25 to $50": [25, 50],
+        "$51 to $100": [51, 100],
+        "Over $100": [100, 1000000]
+      },
+
+      low: "50",
+      high: "100",
 
       filters: [
         {
@@ -187,6 +196,7 @@ export default {
           brand: "Gucci",
           color: "Red",
           price: 251,
+          size: "L",
           image: require("../../assets/images/micro-1.png")
         },
         {
@@ -249,19 +259,8 @@ export default {
 
   computed: {
     filteredItems() {
+    this.priceFilter()
       return this.categories.filter(item => {
-        /*         if (this.price.length === 0) {
-          return this.price.length === 0;
-        } else if (this.price.some(j => j.includes("Under $25"))) {
-          return item.price >= 0 && item.price <= 25;
-        } else if (this.price.some(j => j.includes("$25 to $50"))) {
-          return item.price >= 25 && item.price <= 50;
-        } else if (this.price.some(j => j.includes("$51 to $100"))) {
-          return item.price >= 51 && item.price <= 100;
-        }  else if (this.price.some(j => j.includes("Over $100"))) {
-          return item.price >= 100;
-        }  */
-
         return (
           (this.brandNames.length === 0 ||
             this.brandNames.some(i => i.includes(item.brand))) &&
@@ -269,10 +268,31 @@ export default {
             item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1) &&
           (this.color.length === 0 ||
             this.color.some(j => j.includes(item.color))) &&
-          (this.size.length === 0 || this.size.some(k => k.includes(item.size)))
+          (this.size.length === 0 ||
+            this.size.some(k => k.includes(item.size))) &&
+          /* printing in console works but not updating in view */
+          (this.price.length === 0 ||
+            (item.price >= this.low && item.price <= this.high))
         );
       });
     }
+  },
+  methods: {
+    priceFilter: function() {
+      return this.categories.filter(item => {
+        Object.keys(this.filtersAsNumbers)
+          .filter(priceRange => this.price.includes(priceRange))
+          .filter(priceRangeFiltered => {
+            this.low = this.filtersAsNumbers[priceRangeFiltered][0];
+
+            this.high = this.filtersAsNumbers[priceRangeFiltered][1];
+           /*  item.price >= low && item.price <= high;
+            if (item.price >= low && item.price <= high) {
+              console.log(item);
+            } */
+          });
+      }
+      )}
   }
 };
 </script>
