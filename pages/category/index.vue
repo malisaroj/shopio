@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <h4>Categories</h4>
-
     <div class="row">
       <div class="col-3">
         <h5>filter by</h5>
@@ -16,27 +15,33 @@
         </div>
       </div>
 
-      <div v-for="(filter, index) in brandFilters" :key="index" class="filterBrand col-3">
+      <div v-for="(filter, index) in filters" :key="index" class="col-3">
         <h5>{{filter.title}}</h5>
-        <div v-for="(a, b) in filter.options" :key="b">
-          <input type="checkbox" :name="a.name" :id="a.name" v-model="brandNames" :value="a.value" />
-          <label :for="a.name">{{a.label}}</label>
+        <div v-if="filter.title === 'Brand'">
+          <div v-for="(a, b) in filter.options" :key="b">
+            <input
+              type="checkbox"
+              :name="a.name"
+              :id="a.name"
+              v-model="brandNames"
+              :value="a.value"
+            />
+            <label :for="a.name">{{a.label}}</label>
+          </div>
         </div>
-      </div>
 
-      <div v-for="(filter, index) in priceFilters" :key="index" class="filterPrice col-3">
-        <h5>{{filter.title}}</h5>
-        <div v-for="(a, b) in filter.options" :key="b">
-          <input type="checkbox" :name="a.name" :id="a.name" v-model="price" :value="a.value" />
-          <label :for="a.name">{{a.label}}</label>
+        <div v-else-if="filter.title === 'Price'">
+          <div v-for="(a, b) in filter.options" :key="b">
+            <input type="checkbox" :name="a.name" :id="a.name" v-model="price" :value="a.value" />
+            <label :for="a.name">{{a.label}}</label>
+          </div>
         </div>
-      </div>
 
-      <div v-for="(filter, index) in colorFilters" :key="index" class="filterColor col-3">
-        <h5>{{filter.title}}</h5>
-        <div v-for="(a, b) in filter.options" :key="b">
-          <input type="checkbox" :name="a.name" :id="a.name" v-model="color" :value="a.value" />
-          <label :for="a.name">{{a.label}}</label>
+        <div v-else>
+          <div v-for="(a, b) in filter.options" :key="b">
+            <input type="checkbox" :name="a.name" :id="a.name" v-model="color" :value="a.value" />
+            <label :for="a.name">{{a.label}}</label>
+          </div>
         </div>
       </div>
     </div>
@@ -67,7 +72,7 @@ export default {
       price: [],
       color: [],
 
-      brandFilters: [
+      filters: [
         {
           title: "Brand",
           options: [
@@ -90,28 +95,38 @@ export default {
               label: "Hp"
             }
           ]
-        }
-      ],
-      priceFilters: [
+        },
+
         {
           title: "Price",
           options: [
             {
-              name: "50to100",
-              value: "50",
+              name: "under25",
+              value: "Under $25",
               model: "price",
-              label: "$50 to $100"
+              label: "Under $25"
             },
             {
-              name: "100to250",
-              value: "250",
+              name: "25to50",
+              value: "$25 to $50",
               model: "price",
-              label: "$100 to $ 250"
+              label: "$25 to $50"
+            },
+            {
+              name: "51to100",
+              value: "$51 to $100",
+              model: "price",
+              label: "$51 to $100"
+            },
+            {
+              name: "over100",
+              value: "Over $100",
+              model: "price",
+              label: "Over $100"
             }
           ]
-        }
-      ],
-      colorFilters: [
+        },
+
         {
           title: "Color",
           options: [
@@ -136,35 +151,35 @@ export default {
           title: "Business",
           brand: "Dell",
           color: "Red",
-          price: "50",
+          price: 52,
           image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Tshirts",
           brand: "Calvin Klein",
           color: "Red",
-          price: "100",
+          price: 102,
           image: require("../../assets/images/pro-1.png")
         },
         {
           title: "Shipping Bags",
           brand: "Gucci",
           color: "Red",
-          price: "250",
+          price: 251,
           image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Traditional Laptops",
           brand: "Acer",
           color: "White",
-          price: "100",
+          price: 103,
 
           image: require("../../assets/images/pro-1.png")
         },
         {
           title: "Cable Converters",
           color: "White",
-          price: "49",
+          price: 49,
           image: require("../../assets/images/leca.png")
         },
         {
@@ -194,16 +209,26 @@ export default {
   computed: {
     filteredItems() {
       return this.categories.filter(item => {
+/*         if (this.price.length === 0) {
+          return this.price.length === 0;
+        } else if (this.price.some(j => j.includes("Under $25"))) {
+          return item.price >= 0 && item.price <= 25;
+        } else if (this.price.some(j => j.includes("$25 to $50"))) {
+          return item.price >= 25 && item.price <= 50;
+        } else if (this.price.some(j => j.includes("$51 to $100"))) {
+          return item.price >= 51 && item.price <= 100;
+        }  else if (this.price.some(j => j.includes("Over $100"))) {
+          return item.price >= 100;
+        }  */
+        
         return (
           (this.brandNames.length === 0 ||
             this.brandNames.some(i => i.includes(item.brand))) &&
           (this.search.length === 0 ||
             item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1) &&
           (this.color.length === 0 ||
-            this.color.some(j => j.includes(item.color))) &&
-          (this.price.length === 0 ||
-            this.price.some(k => k.includes(item.price)))
-        );
+            this.color.some(j => j.includes(item.color))) 
+        ); 
       });
     }
   }
