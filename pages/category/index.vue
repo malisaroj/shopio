@@ -3,61 +3,73 @@
     <h4>Categories</h4>
     <div class="row">
       <div class="col-3">
-        <h5>filter by</h5>
-        <div class="filterTitle">
-          <input
-            type="text"
-            name="search"
-            id="search"
-            v-model="search"
-            placeholder="Enter Keyword Here"
-          />
-        </div>
-      </div>
-
-      <div v-for="(filter, index) in filters" :key="index" class="col-3">
-        <h5>{{filter.title}}</h5>
-        <div v-if="filter.title === 'Brand'">
-          <div v-for="(a, b) in filter.options" :key="b">
+        <div class>
+          <h5>filter by</h5>
+          <div class="filterTitle">
             <input
-              type="checkbox"
-              :name="a.name"
-              :id="a.name"
-              v-model="brandNames"
-              :value="a.value"
+              type="text"
+              name="search"
+              id="search"
+              v-model="search"
+              placeholder="Enter Keyword Here"
             />
-            <label :for="a.name">{{a.label}}</label>
           </div>
         </div>
 
-        <div v-else-if="filter.title === 'Price'">
-          <div v-for="(a, b) in filter.options" :key="b">
-            <input type="checkbox" :name="a.name" :id="a.name" v-model="price" :value="a.value" />
-            <label :for="a.name">{{a.label}}</label>
+        <div v-for="(filter, index) in filters" :key="index" class>
+          <h5>{{filter.title}}</h5>
+          <hr />
+          <div v-if="filter.title === 'Brand'">
+            <div v-for="(a, b) in filter.options" :key="b">
+              <input
+                type="checkbox"
+                :name="a.name"
+                :id="a.name"
+                v-model="brandNames"
+                :value="a.value"
+              />
+              <label :for="a.name">{{a.value}}</label>
+            </div>
           </div>
-        </div>
 
-        <div v-else>
-          <div v-for="(a, b) in filter.options" :key="b">
-            <input type="checkbox" :name="a.name" :id="a.name" v-model="color" :value="a.value" />
-            <label :for="a.name">{{a.label}}</label>
+          <div v-else-if="filter.title === 'Price'">
+            <div v-for="(a, b) in filter.options" :key="b">
+              <input type="checkbox" :name="a.name" :id="a.name" v-model="price" :value="a.value" />
+              <label :for="a.name">{{a.value}}</label>
+            </div>
+          </div>
+
+          <div v-else-if="filter.title === 'Size'">
+            <div v-for="(a, b) in filter.options" :key="b">
+              <input type="checkbox" :name="a.name" :id="a.name" v-model="size" :value="a.value" />
+              <label :for="a.name">{{a.value}}</label>
+            </div>
+          </div>
+
+          <div v-else>
+            <div v-for="(a, b) in filter.options" :key="b">
+              <input type="checkbox" :name="a.name" :id="a.name" v-model="color" :value="a.value" />
+              <label :for="a.name">{{a.value}}</label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div v-for="(item, index) in filteredItems" :key="index" class="col-2 category-container">
-        <nuxt-link to>
-          <div class="category-link">
-            <div class="image-container">
-              <img class="img" :src="item.image" :alt="item.title" />
-            </div>
-            <div class="category-name">
-              <span>{{item.title}}</span>
-            </div>
+      <div class="col-9">
+        <div class="row">
+          <div v-for="(item, index) in filteredItems" :key="index" class="col-3 category-container">
+            <nuxt-link to>
+              <div class="category-link">
+                <div class="image-container">
+                  <img class="img" :src="item.image" :alt="item.title" />
+                </div>
+                <div class="category-name">
+                  <span>{{item.title}}</span>
+                </div>
+              </div>
+            </nuxt-link>
           </div>
-        </nuxt-link>
+        </div>
       </div>
     </div>
   </div>
@@ -71,6 +83,7 @@ export default {
       brandNames: [],
       price: [],
       color: [],
+      size: [],
 
       filters: [
         {
@@ -79,20 +92,17 @@ export default {
             {
               name: "acer",
               value: "Acer",
-              model: "brandNames",
-              label: "Acer"
+              model: "brandNames"
             },
             {
               name: "dell",
               value: "Dell",
-              model: "brandNames",
-              label: "Dell"
+              model: "brandNames"
             },
             {
               name: "hp",
               value: "Hp",
-              model: "brandNames",
-              label: "Hp"
+              model: "brandNames"
             }
           ]
         },
@@ -103,26 +113,22 @@ export default {
             {
               name: "under25",
               value: "Under $25",
-              model: "price",
-              label: "Under $25"
+              model: "price"
             },
             {
               name: "25to50",
               value: "$25 to $50",
-              model: "price",
-              label: "$25 to $50"
+              model: "price"
             },
             {
               name: "51to100",
               value: "$51 to $100",
-              model: "price",
-              label: "$51 to $100"
+              model: "price"
             },
             {
               name: "over100",
               value: "Over $100",
-              model: "price",
-              label: "Over $100"
+              model: "price"
             }
           ]
         },
@@ -133,14 +139,28 @@ export default {
             {
               name: "red",
               value: "Red",
-              model: "color",
-              label: "Red"
+              model: "color"
             },
             {
               name: "white",
               value: "White",
-              model: "color",
-              label: "White"
+              model: "color"
+            }
+          ]
+        },
+
+        {
+          title: "Size",
+          options: [
+            {
+              name: "xl",
+              value: "XL",
+              model: "size"
+            },
+            {
+              name: "l",
+              value: "L",
+              model: "size"
             }
           ]
         }
@@ -159,6 +179,7 @@ export default {
           brand: "Calvin Klein",
           color: "Red",
           price: 102,
+          size: "XL",
           image: require("../../assets/images/pro-1.png")
         },
         {
@@ -184,22 +205,42 @@ export default {
         },
         {
           title: "Hammers",
+          brand: "Calvin Klein",
+          color: "Red",
+          price: 102,
+          size: "XL",
           image: require("../../assets/images/leca.png")
         },
         {
           title: "Fashion backpacks",
+          brand: "Calvin Klein",
+          color: "Red",
+          price: 102,
+          size: "XL",
           image: require("../../assets/images/leca.png")
         },
         {
           title: "Wall Stickers & Decals",
+          brand: "Calvin Klein",
+          color: "Red",
+          price: 102,
+          size: "XL",
           image: require("../../assets/images/leca.png")
         },
         {
           title: "Cooling Pads/Cooling",
+          brand: "Calvin Klein",
+          color: "Red",
+          price: 102,
+          size: "XL",
           image: require("../../assets/images/leca.png")
         },
         {
           title: "Smartwatches",
+          brand: "Calvin Klein",
+          color: "Red",
+          price: 102,
+          size: "XL",
           image: require("../../assets/images/mac-1.png")
         }
       ]
@@ -209,7 +250,7 @@ export default {
   computed: {
     filteredItems() {
       return this.categories.filter(item => {
-/*         if (this.price.length === 0) {
+        /*         if (this.price.length === 0) {
           return this.price.length === 0;
         } else if (this.price.some(j => j.includes("Under $25"))) {
           return item.price >= 0 && item.price <= 25;
@@ -220,15 +261,16 @@ export default {
         }  else if (this.price.some(j => j.includes("Over $100"))) {
           return item.price >= 100;
         }  */
-        
+
         return (
           (this.brandNames.length === 0 ||
             this.brandNames.some(i => i.includes(item.brand))) &&
           (this.search.length === 0 ||
             item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1) &&
           (this.color.length === 0 ||
-            this.color.some(j => j.includes(item.color))) 
-        ); 
+            this.color.some(j => j.includes(item.color))) &&
+          (this.size.length === 0 || this.size.some(k => k.includes(item.size)))
+        );
       });
     }
   }
