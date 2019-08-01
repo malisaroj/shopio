@@ -17,47 +17,74 @@
         </div>
 
         <div v-for="(filter, index) in filters" :key="index" class>
-          <h5>{{filter.title}}</h5>
+          <b-button class="facet-title" v-b-toggle="filter.collapse">{{ filter.title }}</b-button>
           <hr />
+
           <div v-if="filter.title === 'Brand'">
-            <div v-for="(a, b) in filter.options" :key="b">
-              <input
-                type="checkbox"
-                :name="a.name"
-                :id="a.name"
-                v-model="brandNames"
-                :value="a.value"
-              />
-              <label :for="a.name">{{a.value}}</label>
-            </div>
+            <b-collapse id="collapse-a" class="mt-2">
+              <div v-for="(a, b) in filter.options" :key="b">
+                <input
+                  type="checkbox"
+                  :name="a.name"
+                  :id="a.name"
+                  v-model="brandNames"
+                  :value="a.name | capitalize"
+                />
+                <label :for="a.name">{{a.name | capitalize}}</label>
+              </div>
+            </b-collapse>
           </div>
 
           <div v-else-if="filter.title === 'Price'">
-            <div v-for="(a, b) in filter.options" :key="b">
-              <input type="checkbox" :name="a.name" :id="a.name" v-model="price" :value="a.value" />
-              <label :for="a.name">{{a.value}}</label>
-            </div>
+            <b-collapse id="collapse-b" class="mt-2">
+              <div v-for="(a, b) in filter.options" :key="b">
+                <input
+                  type="checkbox"
+                  :name="a.name"
+                  :id="a.name"
+                  v-model="price"
+                  :value="a.name | capitalize"
+                />
+                <label :for="a.name">{{a.name | capitalize}}</label>
+              </div>
+            </b-collapse>
           </div>
 
           <div v-else-if="filter.title === 'Size'">
-            <div v-for="(a, b) in filter.options" :key="b">
-              <input type="checkbox" :name="a.name" :id="a.name" v-model="size" :value="a.value" />
-              <label :for="a.name">{{a.value}}</label>
-            </div>
+            <b-collapse id="collapse-d">
+              <div v-for="(a, b) in filter.options" :key="b">
+                <input
+                  type="checkbox"
+                  :name="a.name"
+                  :id="a.name"
+                  v-model="size"
+                  :value="a.name | upperCase"
+                />
+                <label :for="a.name">{{a.name | upperCase}}</label>
+              </div>
+            </b-collapse>
           </div>
 
           <div v-else>
-            <div v-for="(a, b) in filter.options" :key="b">
-              <input type="checkbox" :name="a.name" :id="a.name" v-model="color" :value="a.value" />
-              <label :for="a.name">{{a.value}}</label>
-            </div>
+            <b-collapse id="collapse-c">
+              <div v-for="(a, b) in filter.options" :key="b">
+                <input
+                  type="checkbox"
+                  :name="a.name"
+                  :id="a.name"
+                  v-model="color"
+                  :value="a.name | capitalize"
+                />
+                <label :for="a.name">{{a.name | capitalize}}</label>
+              </div>
+            </b-collapse>
           </div>
         </div>
       </div>
 
       <div class="col-9">
         <div class="row">
-          <div v-for="(item, index) in filteredItems" :key="index" class="col-3 category-container">
+          <div v-for="(item, index) in paginatedData" :key="index" class="col-3 category-container">
             <nuxt-link to>
               <div class="category-link">
                 <div class="image-container">
@@ -71,6 +98,15 @@
           </div>
         </div>
       </div>
+
+      <b-container>
+        <b-row align-h="end">
+          <button v-if="pageNumber !== 0" @click="prevPage">Previous</button>
+          <button v-if="pageNumber !== pageCount-1" @click="nextPage">Next</button>
+
+         
+        </b-row>
+      </b-container>
     </div>
   </div>
 </template>
@@ -90,27 +126,26 @@ export default {
         "$51 to $100": [51, 100],
         "Over $100": [100, 1000000]
       },
-
-      low: "50",
-      high: "100",
+      low: [],
+      high: [],
+      pageNumber: 0,
+      items: 6,
 
       filters: [
         {
           title: "Brand",
+          collapse: "collapse-a",
           options: [
             {
               name: "acer",
-              value: "Acer",
               model: "brandNames"
             },
             {
               name: "dell",
-              value: "Dell",
               model: "brandNames"
             },
             {
               name: "hp",
-              value: "Hp",
               model: "brandNames"
             }
           ]
@@ -118,25 +153,22 @@ export default {
 
         {
           title: "Price",
+          collapse: "collapse-b",
           options: [
             {
-              name: "under25",
-              value: "Under $25",
+              name: "under $25",
               model: "price"
             },
             {
-              name: "25to50",
-              value: "$25 to $50",
+              name: "$25 to $50",
               model: "price"
             },
             {
-              name: "51to100",
-              value: "$51 to $100",
+              name: "$51 to $100",
               model: "price"
             },
             {
-              name: "over100",
-              value: "Over $100",
+              name: "Over $100",
               model: "price"
             }
           ]
@@ -144,15 +176,14 @@ export default {
 
         {
           title: "Color",
+          collapse: "collapse-c",
           options: [
             {
               name: "red",
-              value: "Red",
               model: "color"
             },
             {
               name: "white",
-              value: "White",
               model: "color"
             }
           ]
@@ -160,15 +191,14 @@ export default {
 
         {
           title: "Size",
+          collapse: "collapse-d",
           options: [
             {
               name: "xl",
-              value: "XL",
               model: "size"
             },
             {
               name: "l",
-              value: "L",
               model: "size"
             }
           ]
@@ -259,8 +289,23 @@ export default {
 
   computed: {
     filteredItems() {
-    this.priceFilter()
       return this.categories.filter(item => {
+        /* if (this.price.length < 1) {
+          return item;
+        } else if (this.price.length > 0) {
+          var productReturn;
+          Object.keys(this.filtersAsNumbers)
+            .filter(priceRange => this.price.includes(priceRange))
+            .filter(priceRangeFiltered => {
+              let low = this.filtersAsNumbers[priceRangeFiltered][0];
+              let high = this.filtersAsNumbers[priceRangeFiltered][1];
+              if (item.price >= low && item.price <= high) {
+                productReturn = item;
+              }
+            });
+          return productReturn;
+        } */
+
         return (
           (this.brandNames.length === 0 ||
             this.brandNames.some(i => i.includes(item.brand))) &&
@@ -270,29 +315,59 @@ export default {
             this.color.some(j => j.includes(item.color))) &&
           (this.size.length === 0 ||
             this.size.some(k => k.includes(item.size))) &&
-          /* printing in console works but not updating in view */
           (this.price.length === 0 ||
-            (item.price >= this.low && item.price <= this.high))
+            (Object.keys(this.filtersAsNumbers)
+              .filter(priceRange => this.price.includes(priceRange))
+              .filter(priceRangeFiltered => {
+                this.low = this.filtersAsNumbers[priceRangeFiltered][0];
+                this.high = this.filtersAsNumbers[priceRangeFiltered][1];
+
+                let low = this.filtersAsNumbers[priceRangeFiltered][0];
+                let high = this.filtersAsNumbers[priceRangeFiltered][1];
+
+                console.log(item.price >= low && item.price <= high);
+              }) &&
+              (item.price >= this.low && item.price <= this.high)))
         );
       });
+    },
+
+    pageCount() {
+      let l = this.filteredItems.length;
+      let s = this.items;
+      return Math.ceil(l / s);
+    },
+
+    paginatedData() {
+      const start = this.pageNumber * this.items,
+        end = start + this.items;
+
+      return this.filteredItems.slice(start, end);
     }
   },
   methods: {
-    priceFilter: function() {
-      return this.categories.filter(item => {
-        Object.keys(this.filtersAsNumbers)
-          .filter(priceRange => this.price.includes(priceRange))
-          .filter(priceRangeFiltered => {
-            this.low = this.filtersAsNumbers[priceRangeFiltered][0];
+    nextPage() {
+      this.pageNumber++;
+    },
+    prevPage() {
+      this.pageNumber--;
+    }
+  },
 
-            this.high = this.filtersAsNumbers[priceRangeFiltered][1];
-           /*  item.price >= low && item.price <= high;
-            if (item.price >= low && item.price <= high) {
-              console.log(item);
-            } */
-          });
-      }
-      )}
+  filters: {
+    /* For Capitalizing the string name */
+    capitalize: function(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+
+    /* For Converting String Name to the uppercase */
+    upperCase: function(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.toUpperCase();
+    }
   }
 };
 </script>
@@ -339,5 +414,38 @@ a:visited {
 
 .category-link {
   padding-top: 10px;
+}
+
+.btn-secondary {
+  width: 100%;
+  background-color: #fff;
+  color: #000;
+  text-align: left;
+  border: none;
+}
+
+.btn-secondary:hover {
+  color: #000;
+  background-color: #fff;
+  border-color: none;
+}
+
+.btn-secondary:focus,
+.btn-secondary.focus {
+  box-shadow: none;
+}
+
+.facet-title::after {
+  float: right;
+  font-size: 2rem;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  transition: -webkit-transform 0.1s;
+  transition: transform 0.1s;
+  transition: transform 0.1s, -webkit-transform 0.1s;
+}
+
+.facet-title::after {
+  content: "›";
 }
 </style>
