@@ -98,13 +98,10 @@
           </div>
         </div>
       </div>
-
       <b-container>
         <b-row align-h="end">
           <button v-if="pageNumber !== 0" @click="prevPage">Previous</button>
-          <button v-if="pageNumber !== pageCount-1" @click="nextPage">Next</button>
-
-         
+          <button v-if="pageNumber != pageCount-1" @click="nextPage">Next</button>
         </b-row>
       </b-container>
     </div>
