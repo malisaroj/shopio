@@ -4,6 +4,7 @@ import { interopDefault } from './utils'
 
 const _2b5b2eef = () => interopDefault(import('..\\pages\\category\\index.vue' /* webpackChunkName: "pages_category_index" */))
 const _20b7a979 = () => interopDefault(import('..\\pages\\form.vue' /* webpackChunkName: "pages_form" */))
+const _77f46d58 = () => interopDefault(import('..\\pages\\register.vue' /* webpackChunkName: "pages_register" */))
 const _5cddb9ed = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
@@ -74,6 +75,10 @@ export function createRouter() {
       path: "/form",
       component: _20b7a979,
       name: "form"
+    }, {
+      path: "/register",
+      component: _77f46d58,
+      name: "register"
     }, {
       path: "/",
       component: _5cddb9ed,

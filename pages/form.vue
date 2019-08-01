@@ -1,39 +1,41 @@
 <template>
   <section class="container">
     <h4>Login</h4>
-    <b-container-fluid>
+    <b-container fluid>
       <b-row>
         <b-col cols="6">
           <form>
             <b-row>
               <b-col>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email Address *</label>
+                  <label for="inputEmail2">Email Address *</label>
                   <input
+                    v-validate="'required|email'"
                     type="email"
                     class="form-control"
-                    id="exampleInputEmail1"
+                    id="inputEmail2"
                     aria-describedby="emailHelp"
                     placeholder="Enter your email address"
                   />
                 </div>
                 <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                  <label class="form-check-label" for="exampleCheck1">Keep Me Logged in</label>
+                  <input type="checkbox" class="form-check-input" id="check3" />
+                  <label class="form-check-label" for="check3">Keep Me Logged in</label>
                 </div>
               </b-col>
               <b-col>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Password *</label>
+                  <label for="inputPassword2">Password *</label>
                   <input
+                  v-validate="'required|min:6'"
                     type="password"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="inputPassword2"
                     placeholder="Enter your password"
                   />
                 </div>
                 <div>
-                  <b-button id="login-button" block variant="primary">Login</b-button>
+                  <b-button id="login-button" block variant="primary" type="submit">Login</b-button>
                 </div>
                 <div class="forgot-link">
                   <a href="#">
@@ -51,17 +53,18 @@
           <b-button id="register-button" block variant="primary">Create New Account</b-button>
         </b-col>
       </b-row>
-    </b-container-fluid>
+    </b-container>
   </section>
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
+import Vue from "vue";
+import VeeValidate from "vee-validate";
+
+Vue.use(VeeValidate);
 
 export default {
-  components: {
-    Logo
-  }
+  components: {}
 };
 </script>
 
@@ -133,5 +136,9 @@ p {
   line-height: 20px;
   font-style: normal;
   letter-spacing: 0.01875em;
+}
+
+input {
+  border-radius: 0;
 }
 </style>
