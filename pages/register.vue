@@ -17,6 +17,8 @@
                 v-validate="'required|alpha|min:3|max:10'"
                 aria-describedby="firstNameHelp"
                 placeholder="Enter your first name"
+                v-model="firstName"
+                @change="postNow()"
                 data-vv-name="firstName"
                 :class="{ 'is-invalid': submitted && errors.has('firstName') }"
               />
@@ -152,6 +154,8 @@
 import Vue from "vue";
 import VeeValidate from "vee-validate";
 
+import axios from 'axios'
+
 Vue.use(VeeValidate);
 
 export default {
@@ -160,13 +164,15 @@ export default {
       selected: null,
       submitted: true,
       checked: false,
-      password: "password"
+      password: "password",
+      firstName: ''
     };
   },
-  computed: {
-    showPassword()  {
-      
-    }
+  methods: {
+
+    //Pushes posts to  the server when called
+  
+
   },
     watch: {
       checked: function() {

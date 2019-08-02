@@ -95,10 +95,25 @@
                   <img class="img" :src="item.image" :alt="item.title" />
                 </div>
                 <div class="category-name">
-                  <span>{{item.title}}</span>
+                  <span>{{ item.title }}</span>
+                  <div class="price">
+                    <span v-if="item.discount">Rs. {{calculateDiscount(item.discount, item.price)}}</span>
+                    <span v-else>Rs. {{item.price}}</span>
+                  </div>
+                  <div class="discount">
+                    <span v-show="item.discount">
+                      <del>Rs. {{item.price}}</del>
+                    </span>
+                    <span class="discount-rate" v-show="item.discount">-{{item.discount}}%</span>
+                  </div>
                 </div>
               </div>
             </nuxt-link>
+            <div class="cart-button">
+              <button
+                class="add-to-cart"
+              >Add to Cart</button>
+            </div>
           </div>
         </div>
       </div>
@@ -131,7 +146,7 @@ export default {
       high: [],
       value: "",
       pageNumber: 0,
-      items: 6,
+      items: 8,
 
       filters: [
         {
@@ -139,13 +154,13 @@ export default {
           collapse: "collapse-a",
           options: [
             {
-              name: "acer",
+              name: "acer"
             },
             {
-              name: "dell",
+              name: "dell"
             },
             {
-              name: "hp",
+              name: "hp"
             }
           ]
         },
@@ -193,10 +208,10 @@ export default {
           collapse: "collapse-d",
           options: [
             {
-              name: "xl",
+              name: "xl"
             },
             {
-              name: "l",
+              name: "l"
             }
           ]
         }
@@ -208,6 +223,7 @@ export default {
           brand: "Dell",
           color: "Red",
           price: 52,
+          discount: "2",
           image: require("../../assets/images/micro-1.png")
         },
         {
@@ -216,6 +232,7 @@ export default {
           color: "Red",
           price: 102,
           size: "XL",
+          discount: "10",
           image: require("../../assets/images/pro-1.png")
         },
         {
@@ -224,6 +241,7 @@ export default {
           color: "Red",
           price: 251,
           size: "L",
+          discount: "5",
           image: require("../../assets/images/micro-1.png")
         },
         {
@@ -231,7 +249,7 @@ export default {
           brand: "Acer",
           color: "White",
           price: 103,
-
+          discount: "17",
           image: require("../../assets/images/pro-1.png")
         },
         {
@@ -254,6 +272,8 @@ export default {
           color: "Red",
           price: 102,
           size: "XL",
+          discount: "7",
+
           image: require("../../assets/images/leca.png")
         },
         {
@@ -337,6 +357,9 @@ export default {
     },
     prevPage() {
       this.pageNumber--;
+    },
+    calculateDiscount(rate, price) {
+      return Math.ceil(price - (rate / 100) * price);
     }
   },
 
@@ -358,7 +381,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .img {
   width: 100%;
   height: 100%;
@@ -368,19 +391,19 @@ export default {
 .category-name {
   font-size: 15px;
   font-weight: 400;
-  text-align: center;
   color: #000;
+  line-height: 30px;
 }
 
 .image-container {
   margin: 0 auto;
-  width: 100px;
-  height: 100px;
+  width: 80%;
+  height: 233px;
 }
 
 .category-container {
   background-color: #fff;
-  height: 148.5px;
+  height: 400px;
   border-right: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
   -webkit-transform: all 0.3s ease-in-out;
@@ -396,10 +419,6 @@ export default {
 a:link,
 a:visited {
   text-decoration: none;
-}
-
-.category-link {
-  padding-top: 10px;
 }
 
 .btn-secondary {
@@ -433,5 +452,46 @@ a:visited {
 
 .facet-title::after {
   content: "›";
+}
+
+.discount {
+  font-size: 12px;
+  text-align: left;
+  color: #9e9e9e;
+}
+
+.discount-rate {
+  font-weight: 700;
+  color: #000;
+  margin-left: 10px;
+}
+.price {
+  font-size: 18px;
+  color: #f57224;
+  text-align: left;
+  font-weight: 400;
+}
+
+.cart-button button.add-to-cart {
+  border-radius: 45px;
+  padding: 0 20px;
+  min-width: 180px;
+  margin-left: 0;
+  max-width: 60%;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  visibility: hidden;
+  bottom: 0;
+  transition: 0.1s all;
+}
+
+.category-container:hover .cart-button button.add-to-cart {
+  visibility: visible;
+}
+
+.cart-button {
+  position: absolute;
+  bottom: 25px;
 }
 </style>

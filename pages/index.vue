@@ -7,7 +7,6 @@
         </b-container>
         <deals-carousel :items="products" name="Deals of the Day"></deals-carousel>
         <ads></ads>
-        <footer-component></footer-component>
         <cart></cart>
         <toast :show="toast.show" :text="toast.text" @hide-toast="hideToast"></toast>
     </div>
