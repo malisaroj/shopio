@@ -16,7 +16,13 @@
                     id="inputEmail2"
                     aria-describedby="emailHelp"
                     placeholder="Enter your email address"
+                    data-vv-name="email"
+                    :class="{ 'is-invalid': submitted && errors.has('email')}"
                   />
+                   <div
+                    v-if="submitted && errors.has('email')"
+                    class="invalid-feedback"
+                  >{{errors.first('email')}}</div>
                 </div>
                 <div class="form-group form-check">
                   <input type="checkbox" class="form-check-input" id="check3" />
@@ -27,12 +33,19 @@
                 <div class="form-group">
                   <label for="inputPassword2">Password *</label>
                   <input
-                  v-validate="'required|min:6'"
+                    v-validate="'required|min:6'"
                     type="password"
                     class="form-control"
                     id="inputPassword2"
                     placeholder="Enter your password"
+                    data-vv-name="password"
+                    :class="{ 'is-invalid': submitted && errors.has('password')}"
                   />
+
+                  <div
+                    v-if="submitted && errors.has('password')"
+                    class="invalid-feedback"
+                  >{{errors.first('password')}}</div>
                 </div>
                 <div>
                   <b-button id="login-button" block variant="primary" type="submit">Login</b-button>
@@ -64,7 +77,12 @@ import VeeValidate from "vee-validate";
 Vue.use(VeeValidate);
 
 export default {
-  components: {}
+  components: {},
+  data() {
+      return {
+        submitted: true,
+      }
+  }
 };
 </script>
 

@@ -38,14 +38,18 @@
           <div v-else-if="filter.title === 'Price'">
             <b-collapse id="collapse-b" class="mt-2">
               <div v-for="(a, b) in filter.options" :key="b">
-                <input
+                <!--                 <input
                   type="checkbox"
                   :name="a.name"
                   :id="a.name"
                   v-model="price"
                   :value="a.name | capitalize"
                 />
-                <label :for="a.name">{{a.name | capitalize}}</label>
+                <label :for="a.name">{{a.name | capitalize}}</label>-->
+
+                <label for="range-1">{{a.name | capitalize}}</label>
+                <b-form-input id="range-1" v-model="value" type="range" min="0" max="1000"></b-form-input>
+                <div class="mt-2">Value: {{ value }}</div>
               </div>
             </b-collapse>
           </div>
@@ -125,6 +129,7 @@ export default {
       },
       low: [],
       high: [],
+      value: "",
       pageNumber: 0,
       items: 6,
 
@@ -135,15 +140,12 @@ export default {
           options: [
             {
               name: "acer",
-              model: "brandNames"
             },
             {
               name: "dell",
-              model: "brandNames"
             },
             {
               name: "hp",
-              model: "brandNames"
             }
           ]
         },
@@ -152,21 +154,21 @@ export default {
           title: "Price",
           collapse: "collapse-b",
           options: [
-            {
+            /*             {
               name: "under $25",
-              model: "price"
             },
             {
               name: "$25 to $50",
-              model: "price"
             },
             {
               name: "$51 to $100",
-              model: "price"
             },
             {
               name: "Over $100",
-              model: "price"
+            } */
+
+            {
+              name: "price range"
             }
           ]
         },
@@ -192,11 +194,9 @@ export default {
           options: [
             {
               name: "xl",
-              model: "size"
             },
             {
               name: "l",
-              model: "size"
             }
           ]
         }
@@ -312,19 +312,8 @@ export default {
             this.color.some(j => j.includes(item.color))) &&
           (this.size.length === 0 ||
             this.size.some(k => k.includes(item.size))) &&
-          (this.price.length === 0 ||
-            (Object.keys(this.filtersAsNumbers)
-              .filter(priceRange => this.price.includes(priceRange))
-              .filter(priceRangeFiltered => {
-                this.low = this.filtersAsNumbers[priceRangeFiltered][0];
-                this.high = this.filtersAsNumbers[priceRangeFiltered][1];
-
-                let low = this.filtersAsNumbers[priceRangeFiltered][0];
-                let high = this.filtersAsNumbers[priceRangeFiltered][1];
-
-                console.log(item.price >= low && item.price <= high);
-              }) &&
-              (item.price >= this.low && item.price <= this.high)))
+          (this.value.length === 0 ||
+            (item.price >= 0 && item.price <= this.value))
         );
       });
     },

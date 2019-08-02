@@ -14,10 +14,18 @@
                 type="text"
                 class="form-control"
                 id="inputFirstName1"
+                v-validate="'required|alpha|min:3|max:10'"
                 aria-describedby="firstNameHelp"
                 placeholder="Enter your first name"
+                data-vv-name="firstName"
+                :class="{ 'is-invalid': submitted && errors.has('firstName') }"
               />
+                          <div v-if="submitted && errors.has('firstName')" class="invalid-feedback">
+              {{
+              errors.first('firstName') }}
             </div>
+            </div>
+
 
             <div class="form-group">
               <label for="inputGender1">Gender *</label>
@@ -36,8 +44,15 @@
                 id="inputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter your email address"
+                data-vv-name="email"
+                :class="{ 'is-invalid': submitted && errors.has('email') }"
               />
+                          <div v-if="submitted && errors.has('email')" class="invalid-feedback">
+              {{
+              errors.first('email') }}
             </div>
+            </div>
+
 
             <div>
               <label for>I WANT TO RECEIVE OFFERS BY E-MAIL</label>
@@ -67,22 +82,39 @@
                 type="text"
                 class="form-control"
                 id="inputLastName1"
+                v-validate="'required|alpha|min:3|max:10'"
                 aria-describedby="lastNameHelp"
                 placeholder="Enter your last name"
+                data-vv-name="lastName"
+                :class="{ 'is-invalid': submitted && errors.has('lastName') }"
               />
+                          <div v-if="submitted && errors.has('lastName')" class="invalid-feedback">
+              {{
+              errors.first('lastName') }}
             </div>
+            </div>
+
 
             <div class="form-group">
               <label for="inputBirthday1">Birthday *</label>
               <b-row>
                 <b-col>
-                  <input type="number" class="form-control" id="inputBirthday1" placeholder="dd" />
+                  <input class="form-control" id="inputBirthday1" placeholder="dd" v-validate="'numeric|min_value:1|max_value:31'" data-vv-name="day" :class="{'is-invalid': submitted && errors.has('day')}"/>
+                                              <div v-if="submitted && errors.has('day')" class="invalid-feedback">{{
+                                errors.first('day') }}
+                            </div>
                 </b-col>
                 <b-col>
-                  <input type="number" class="form-control" id="inputBirthday2" placeholder="mm" />
+                  <input class="form-control" id="inputBirthday2" placeholder="mm" v-validate="'numeric|min_value:1|max_value:12'" data-vv-name="month" :class="{'is-invalid': submitted && errors.has('month')}"/>
+                                              <div v-if="submitted && errors.has('month')" class="invalid-feedback">{{
+                                errors.first('month') }}
+                            </div>
                 </b-col>
                 <b-col>
-                  <input type="number" class="form-control" id="inputBirthday3" placeholder="yyyy" />
+                  <input class="form-control" id="inputBirthday3" placeholder="yyyy" v-validate="'numeric|min_value:1900|max_value:2019'" data-vv-name="year" :class="{'is-invalid': submitted && errors.has('year')}" />
+                                              <div v-if="submitted && errors.has('year')" class="invalid-feedback">{{
+                                errors.first('year') }}
+                            </div>
                 </b-col>
               </b-row>
             </div>
@@ -91,14 +123,22 @@
               <label for="inputPassword1">Password *</label>
               <input
                 v-validate="'required|min:6'"
-                type="password"
+                :type="password"
                 class="form-control"
                 id="inputPassword1"
                 placeholder="Enter your password"
+                data-vv-name="password"
+                :class="{ 'is-invalid': submitted && errors.has('password') }"
               />
+                          <div v-if="submitted && errors.has('password')" class="invalid-feedback">
+              {{
+              errors.first('password') }}
             </div>
+            </div>
+
+
             <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="check2" />
+              <input type="checkbox" class="form-check-input" id="check2" v-model="checked"/>
               <label class="form-check-label" for="check2">Show Password</label>
             </div>
           </b-col>
@@ -117,9 +157,28 @@ Vue.use(VeeValidate);
 export default {
   data() {
     return {
-      selected: null
+      selected: null,
+      submitted: true,
+      checked: false,
+      password: "password"
     };
-  }
+  },
+  computed: {
+    showPassword()  {
+      
+    }
+  },
+    watch: {
+      checked: function() {
+        if(this.checked === true) {
+        this.password = "text";
+      } else {
+        this.password = "password";
+      }
+
+      }
+
+    }
 };
 </script>
 
