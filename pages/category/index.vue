@@ -97,12 +97,14 @@
                 <div class="category-name">
                   <span>{{ item.title }}</span>
                   <div class="price">
-                    <span v-if="item.discount">Rs. {{calculateDiscount(item.discount, item.price)}}</span>
-                    <span v-else>Rs. {{item.price}}</span>
+                    <span
+                      v-if="item.discount"
+                    >Rs. {{calculateDiscount(item.discount, item.price) | comma}}</span>
+                    <span v-else>Rs. {{item.price | comma }}</span>
                   </div>
                   <div class="discount">
                     <span v-show="item.discount">
-                      <del>Rs. {{item.price}}</del>
+                      <del>Rs. {{item.price | comma}}</del>
                     </span>
                     <span class="discount-rate" v-show="item.discount">-{{item.discount}}%</span>
                   </div>
@@ -110,9 +112,7 @@
               </div>
             </nuxt-link>
             <div class="cart-button">
-              <button
-                class="add-to-cart"
-              >Add to Cart</button>
+              <button class="add-to-cart">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -136,14 +136,6 @@ export default {
       price: [],
       color: [],
       size: [],
-      filtersAsNumbers: {
-        "Under $25": [0, 25],
-        "$25 to $50": [25, 50],
-        "$51 to $100": [51, 100],
-        "Over $100": [100, 1000000]
-      },
-      low: [],
-      high: [],
       value: "",
       pageNumber: 0,
       items: 8,
@@ -222,34 +214,34 @@ export default {
           title: "Business",
           brand: "Dell",
           color: "Red",
-          price: 52,
-          discount: "2",
+          price: 5200,
+          discount: 2,
           image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Tshirts",
           brand: "Calvin Klein",
           color: "Red",
-          price: 102,
+          price: 1023,
           size: "XL",
-          discount: "10",
+          discount: 10,
           image: require("../../assets/images/pro-1.png")
         },
         {
           title: "Shipping Bags",
           brand: "Gucci",
           color: "Red",
-          price: 251,
+          price: 2515,
           size: "L",
-          discount: "5",
+          discount: 5,
           image: require("../../assets/images/micro-1.png")
         },
         {
           title: "Traditional Laptops",
           brand: "Acer",
           color: "White",
-          price: 103,
-          discount: "17",
+          price: 1035,
+          discount: 17,
           image: require("../../assets/images/pro-1.png")
         },
         {
@@ -376,6 +368,20 @@ export default {
       if (!value) return "";
       value = value.toString();
       return value.toUpperCase();
+    },
+    comma: function(value) {
+      value = value.toString();
+      if (!value) return "";
+      else if (value.length > 3) {
+        let subStrings = Math.floor(value.length / 3);
+        for (let i = 0; i < subStrings; i++) {
+          return (
+            value.slice(0, value.length - 3) + "," + value.slice(-3 * (i + 1))
+          );
+        }
+      } else {
+        return value;
+      }
     }
   }
 };
